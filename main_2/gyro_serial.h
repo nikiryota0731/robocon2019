@@ -37,7 +37,7 @@ class gyroSerial {
       return;
     }
 
-    float getData() {
+    double getData() {
       return i;
     }
 
