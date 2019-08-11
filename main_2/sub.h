@@ -14,16 +14,17 @@
 #include "libs/sw_controller.h"
 #include "gyro_serial.h"
 #include "position_estimation.h"
+#include "omni_controller.h"
 /************************************
    Instace
 ************************************/
 
 extern ControllerManagerDS3 DS3;
-extern I2CMasterWriter i2cOmni, i2cLCD, i2cMotorBoard, i2cServoBoard, i2csolenoidBoard;
-extern I2CMasterReader i2ReceiveLCD, i2cSW;
+extern I2CMasterWriter i2cLCD, i2cMotorBoard, i2cServoBoard, i2csolenoidBoard;
+extern I2CMasterReader i2ReceiveLCD, i2cSW, i2cSDReceive;
 extern EncoderBoardMbed enc;
 extern LoopCycleController loopPeriodUs;
-extern PidController gyroPid, omniXPid, omniYPid;
+extern omniController omniDriver;
 extern PidController mainRollUpPid, subRollUpPid;
 extern swController DS3RightHatX, LCDSW[4], limitSW[15];
 extern gyroSerial gyro;
@@ -54,9 +55,9 @@ void display();
 void firstArm();
 void secondArm();
 
-//omniAuto.cpp
-void omniAuto(int nowX, int nowY);
-bool getIsTargetLocation(int nowX, int nowY, int moveX, int moveY);
+////omniAuto.cpp
+//void omniAuto(int nowX, int nowY);
+//bool getIsTargetLocation(int nowX, int nowY, int moveX, int moveY);
 
 //omniManual
 void omniManual(int moveX, int moveY, int turnXX);

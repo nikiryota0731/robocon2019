@@ -3,7 +3,6 @@
 void allUpdate() {
   DS3.update();
   isZoneRed = !i2ReceiveLCD.getBitData(0, 0);
-  i2cOmni.update();
   i2cMotorBoard.update();
   i2cServoBoard.update();
   i2csolenoidBoard.update();
@@ -11,7 +10,9 @@ void allUpdate() {
   i2cLCD.update();
   i2ReceiveLCD.update();
   i2cSW.update();
-  position.update(enc.getCount(1), enc.getCount(2), gyro.getData());
+  i2cSDReceive.update();
+  omniDriver.update();
+  position.update(enc.getCount(1), -enc.getCount(2), gyro.getData());
   for (int i = 0; i < 15; i++) {
     if (i < 8) limitSW[i].update(i2cSW.getBitData(0, i));
     else limitSW[i].update(i2cSW.getBitData(1, i - 8));
