@@ -2,6 +2,7 @@
 
 void secondArm() {
 
+  //手動でバスタオルサーボ動かす
   if(DS3.getStartClick()){
     DS3.RightCountUpReset();
   }

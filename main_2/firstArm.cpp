@@ -12,7 +12,7 @@ void firstArm() {
   static bool isSheetOpen = false;
 
   static int sheetState = 0;
-
+  //手動で下段昇降
   if (DS3.getUpClick())
     mainRollValue += 6000;
   else if (DS3.getDownClick())
@@ -23,6 +23,7 @@ void firstArm() {
     mainRollMin = -enc.getCount(3);
   mainRollValue = constrain(mainRollValue, mainRollMin, mainRollMax);
 
+  //手動で上段昇降
   if (DS3.getTriangleClick())
     subRollValue += 2000;
   else if (DS3.getSquareClick())
@@ -115,6 +116,7 @@ void firstArm() {
   int mainPower = constrain(mainRollUpPid.getPower(), -50, 80);
   int subPower = constrain(subRollUpPid.getPower(), -50, 80);
 
+  //手動で洗濯ばさみ上下
   if (DS3.getR1Click())
     isClothesPinDown = !isClothesPinDown;
   int clothesPinValue = 0;
@@ -124,6 +126,8 @@ void firstArm() {
     clothesPinValue = -80;
   else
     clothesPinValue = 0;
+
+  //手動でシーツ上下
   if (DS3.getL1Click())
     isSheetOpen = !isSheetOpen;
   int sheetValue = 0;
