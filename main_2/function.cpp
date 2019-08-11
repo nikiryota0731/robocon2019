@@ -1,7 +1,5 @@
 #include "sub.h"
 
-
-
 int getAngleDeg(int nowX, int nowY, int moveX, int moveY) {
   double angle = atan2(moveY - nowY, moveX - nowX);
   if (angle < 0) {
@@ -9,10 +7,4 @@ int getAngleDeg(int nowX, int nowY, int moveX, int moveY) {
   }
   angle = angle * 180 / PI;
   return (int)angle;
-}
-
-int getDistance(int nowX, int nowY, int moveX, int moveY) {
-  int distance = sqrt( square(moveX - nowX) + square(moveY - nowY));
-  return distance;
-
 }
