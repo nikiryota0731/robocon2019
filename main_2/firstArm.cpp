@@ -34,80 +34,81 @@ void firstArm() {
     subRollMin = -enc.getCount(4);
   subRollValue = constrain(subRollValue, subRollMin, subRollMax);
 
-  if (DS3.getStartClick()) {
-    mainRollValue = mainRollMin;
-    subRollValue = subRollMin;
-    isSheetOpen = false;
-    isClothesPinDown = false;
-  }
-
-  //腕の自動展開
-  if (locationState >= 2 && locationState <= 7) {
-    mainRollValue = mainRollMax;
-    subRollValue = subRollMax;
-  } else {
-    mainRollValue = mainRollMin;
-    subRollValue = subRollMin;
-  }
-  //自動でシーツをかける
-
-  switch (sheetState) {
-    case 0: //待機
+  /*
+    if (DS3.getStartClick()) {
+      mainRollValue = mainRollMin;
+      subRollValue = subRollMin;
       isSheetOpen = false;
-      isClothesPinDown = true;
-      if (locationState == 3) {
-        isPause = true;
-        sheetState++;
-      }
-      break;
-    case 1:
-      if (isTargetLocation || DS3.getCircleClick())
-        sheetState++;
-      break;
-    case 2: //シーツ降ろす
-      isSheetOpen = true;
-      if (limitSW[6].getData() || DS3.getCircleClick())
-        sheetState++;
-      break;
-    case 3: //洗濯ばさみ上げる
       isClothesPinDown = false;
-      if (limitSW[7].getData() || DS3.getCircleClick()) {
+    }
+    //腕の自動展開
+    if (locationState >= 2 && locationState <= 7) {
+      mainRollValue = mainRollMax;
+      subRollValue = subRollMax;
+    } else {
+      mainRollValue = mainRollMin;
+      subRollValue = subRollMin;
+    }
+
+    //自動でシーツをかける
+    switch (sheetState) {
+      case 0: //待機
+        isSheetOpen = false;
+        isClothesPinDown = true;
+        if (locationState == 3) {
+          isPause = true;
+          sheetState++;
+        }
+        break;
+      case 1: //待機
+        if (isTargetLocation || DS3.getCircleClick())
+          sheetState++;
+        break;
+      case 2: //シーツ降ろす
+        isSheetOpen = true;
+        if (limitSW[6].getData() || DS3.getCircleClick())
+          sheetState++;
+        break;
+      case 3: //洗濯ばさみ上げる
+        isClothesPinDown = false;
+        if (limitSW[7].getData() || DS3.getCircleClick()) {
+          isPause = false;
+          sheetState++;
+        }
+        break;
+      case 4: //横移動
+        if (locationState == 6)
+          sheetState = 0;
+        break;
+    }
+
+    setDisplay(2, 3, sheetState);
+
+    if (isPause && isTargetLocation) {
+      isSheetOpen = true;
+      isClothesPinDown = true;
+  
+    }
+    if (limitSW[8].getData()) {
+      isClothesPinDown = false;
+    }
+  
+    if (locationState == 3) {
+      isPause = true;
+      if (limitSW[6].getData() && limitSW[7].getData())
         isPause = false;
-        sheetState++;
-      }
-    case 4: //横移動
-      if (locationState == 6)
-        sheetState = 0;
-
-  }
-
-  setDisplay(2, 3, sheetState);
-
-  //  if (isPause && isTargetLocation) {
-  //    isSheetOpen = true;
-  //    isClothesPinDown = true;
-  //
-  //  }
-  //  if (limitSW[8].getData()) {
-  //    isClothesPinDown = false;
-  //  }
-  //
-  //  if (locationState == 3) {
-  //    isPause = true;
-  //    if (limitSW[6].getData() && limitSW[7].getData())
-  //      isPause = false;
-  //  }
-  //  if (locationState == 6) {
-  //    isSheetOpen = false;
-  //    isClothesPinDown = false;
-  //  }
-  Serial.print("isTargetLocation : "); Serial.print(isTargetLocation);
-  Serial.print("\t");
-  Serial.print("isSheetOpen : "); Serial.print(isSheetOpen);
-  Serial.print("\t");
-  Serial.print("locationState : "); Serial.print(isTargetLocation);
-  Serial.print("\t");
-
+    }
+    if (locationState == 6) {
+      isSheetOpen = false;
+      isClothesPinDown = false;
+    }
+    Serial.print("isTargetLocation : "); Serial.print(isTargetLocation);
+    Serial.print("\t");
+    Serial.print("isSheetOpen : "); Serial.print(isSheetOpen);
+    Serial.print("\t");
+    Serial.print("locationState : "); Serial.print(isTargetLocation);
+    Serial.print("\t");
+*/
 
   mainRollUpPid.update(-enc.getCount(3) , mainRollValue);
   subRollUpPid.update(-enc.getCount(4) , subRollValue);
