@@ -16,7 +16,7 @@ class slaveSender {
     void setData(int arrayNum, byte Data);
     void setBitData(int arrayNum, int BitNum, bool Data);
     void Reset();
-    void Update();
+    void update();
     void show();
 };
 
@@ -30,12 +30,12 @@ slaveSender::slaveSender(int arraySize) {
 
 void slaveSender::setData(int arrayNum, byte Data) {
   Data = constrain(Data, 0, 255);
-  data[arrayNum - 1] = Data;
+  data[arrayNum] = Data;
 }
 
 void slaveSender::setBitData(int arrayNum, int BitNum, bool Data) {
   Data = (bool)Data;
-  bitWrite(data[arrayNum-1], BitNum - 1, Data);
+  bitWrite(data[arrayNum], BitNum, Data);
 }
 
 void slaveSender::Reset() {
@@ -43,7 +43,7 @@ void slaveSender::Reset() {
     data[i] = 0;
 }
 
-void slaveSender::Update() {
+void slaveSender::update() {
   Wire.write(data, Size);
 }
 
@@ -55,4 +55,3 @@ void slaveSender::show() {
   }
   Serial.println();
 }
-
